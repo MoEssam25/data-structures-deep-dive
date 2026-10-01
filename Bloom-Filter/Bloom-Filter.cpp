@@ -4,7 +4,26 @@
 
 using namespace std;
 
-/* TODO (idea): implement per the lesson description. */
+// Split the sentence into words 
+vector<string> split_sentence(string sen)
+{
+    stringstream ss(sen);
+    
+    string word;
+    
+    vector<string> words;
+    
+    while (ss >> word) {
+        words.push_back(word);
+    }
+    
+    return words;
+
+}
+
+
+// First Task 
+
 
 bool Bits[64];
 
@@ -57,7 +76,8 @@ void ADD(string input)
     printf("OK\n");
 }
 
-// Optimizing m, k for a target false-positive rate p
+// Second Task 
+
 
 // OPTIMAL Smallest number of bits m achieving a target false-positive
 int M_opt(int n, double p)
@@ -86,21 +106,20 @@ double BPI(double p)
     return -(log(p) / (ln2));
 }
 
-// Split the sentence into words 
-vector<string> split_sentence(string sen)
-{
-    stringstream ss(sen);
-    
-    string word;
-    
-    vector<string> words;
-    
-    while (ss >> word) {
-        words.push_back(word);
-    }
-    
-    return words;
 
+// Third Task 
+
+int h_a(string input)
+{
+    int sum_output = 0;
+    for (int i = 0; i < input.size(); i++) sum_output += (int)input[i] * (i+1);
+    
+    return sum_output;
+}
+
+int h_b(string input)
+{
+    
 }
 
 int main(void) {
