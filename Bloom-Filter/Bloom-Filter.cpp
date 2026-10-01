@@ -25,7 +25,7 @@ vector<string> split_sentence(string sen)
 // First Task 
 
 
-bool Bits[64];
+bool Bits[100];
 
 int sum(string input, bool Is_it_h1)
 {
@@ -125,12 +125,11 @@ int h_b(string input)
     return sum_output & 0xFFFFFFFFu;
 }
 
-
-int h_i(string input)
+void h_i(string input, int m)
 {
-
+    for (int i = 0; i < input.size(); i++) 
+        Bits[(h_a(input) + i * h_b(input)) % m] = 1;
 }
-
 
 int main(void) {
 
@@ -143,7 +142,7 @@ int main(void) {
         vector<string> words;
         words = split_sentence(line);
 
-        if(words[0] == "OPTIMAL")
+        if(words[0] == "HASH")
         {
             double target_fp = stod(words[1]);
             int expected_n = stoi(words[2]);
@@ -154,7 +153,7 @@ int main(void) {
             cout << "m=" << m << " k=" << k << '\n';
 
         }
-        else if(words[0] == "FP")
+        else if(words[0] == "HA")
         {
             int m = stoi(words[1]);
             int n = stoi(words[2]);
@@ -162,11 +161,6 @@ int main(void) {
 
             cout << fixed << setprecision(6) << Fp_rate(n, m, k) << '\n';
         }   
-        else if(words[0] == "BPI"){
-            double target_fp = stod(words[1]);
-            
-            cout << fixed << setprecision(4) << BPI(target_fp) << '\n';
-        }
     }
 
     return 0;
