@@ -125,10 +125,17 @@ int h_b(string input)
     return sum_output & 0xFFFFFFFFu;
 }
 
-void h_i(string input, int m)
+vector<int> h_i(string input, int m)
 {
+    vector<int> keys;
     for (int i = 0; i < input.size(); i++) 
-        Bits[(h_a(input) + i * h_b(input)) % m] = 1;
+    {
+        int key = (h_a(input) + i * h_b(input)) % m; 
+        Bits[key] = 1;
+        keys.push_back(key);
+    }
+
+    return keys;
 }
 
 int main(void) {
@@ -144,22 +151,16 @@ int main(void) {
 
         if(words[0] == "HASH")
         {
-            double target_fp = stod(words[1]);
-            int expected_n = stoi(words[2]);
+            string input = words[1];
+            int m = stoi(words[2]);
+            int k = stoi(words[3]);
 
-            int m = M_opt(expected_n, target_fp);
-            int k = K_opt(expected_n, m);
-
-            cout << "m=" << m << " k=" << k << '\n';
 
         }
         else if(words[0] == "HA")
         {
-            int m = stoi(words[1]);
-            int n = stoi(words[2]);
-            int k = stoi(words[3]);
-
-            cout << fixed << setprecision(6) << Fp_rate(n, m, k) << '\n';
+            string input = words[1];
+            
         }   
     }
 
