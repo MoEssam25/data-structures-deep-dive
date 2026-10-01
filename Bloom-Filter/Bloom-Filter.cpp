@@ -114,7 +114,7 @@ int h_a(string input)
     int sum_output = 0;
     for (int i = 0; i < input.size(); i++) sum_output += (int)input[i] * (i+1);
     
-    return sum_output;
+    return sum_output & 0xFFFFFFFFu;
 }
 
 int h_b(string input)
@@ -122,8 +122,15 @@ int h_b(string input)
     int sum_output = 0;
     for (int i = 0; i < input.size(); i++) sum_output += (int)input[i] xor (i+1);
     
-    return sum_output;
+    return sum_output & 0xFFFFFFFFu;
 }
+
+
+int h_i(string input)
+{
+
+}
+
 
 int main(void) {
 
