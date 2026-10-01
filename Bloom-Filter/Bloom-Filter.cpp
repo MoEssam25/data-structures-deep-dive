@@ -119,7 +119,10 @@ int h_a(string input)
 
 int h_b(string input)
 {
+    int sum_output = 0;
+    for (int i = 0; i < input.size(); i++) sum_output += (int)input[i] xor (i+1);
     
+    return sum_output;
 }
 
 int main(void) {
