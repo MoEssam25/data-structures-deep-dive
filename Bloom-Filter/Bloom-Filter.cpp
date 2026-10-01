@@ -80,16 +80,26 @@ double Fp_rate(int n, int m, int k)
 }
 
 //(Bits Per Item) Number of bits per item needed to reach a target FP rate p:
-double BPI(int p)
+double BPI(double p)
 {
-    double ln2 = log(2.0);
-    return log(p) / (ln2 * ln2);
+    double ln2 = pow(log(2),2);
+    return -(log(p) / (ln2));
 }
 
 // Split the sentence into words 
 vector<string> split_sentence(string sen)
 {
+    stringstream ss(sen);
     
+    string word;
+    
+    vector<string> words;
+    
+    while (ss >> word) {
+        words.push_back(word);
+    }
+    
+    return words;
 
 }
 
@@ -101,19 +111,34 @@ int main(void) {
     string line;
 
     while (getline(cin, line)) {
-        istringstream iss(line);
-        
-        string cmd;
-        
-        iss >> cmd;
+        vector<string> words;
+        words = split_sentence(line);
 
-        string rest;
-        iss >> std::ws;
-        getline(iss, rest);
-        
+        if(words[0] == "OPTIMAL")
+        {
+            double target_fp = stod(words[1]);
+            int expected_n = stoi(words[2]);
+
+            int m = M_opt(expected_n, target_fp);
+            int k = K_opt(expected_n, m);
+
+            cout << "m=" << m << " k=" << k << '\n';
+
+        }
+        else if(words[0] == "FP")
+        {
+            int m = stoi(words[1]);
+            int n = stoi(words[2]);
+            int k = stoi(words[3]);
+
+            cout << fixed << setprecision(6) << Fp_rate(n, m, k) << '\n';
+        }   
+        else if(words[0] == "BPI"){
+            double target_fp = stod(words[1]);
+            
+            cout << fixed << setprecision(4) << BPI(target_fp) << '\n';
+        }
     }
-
-    
 
     return 0;
 }
