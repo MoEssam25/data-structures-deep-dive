@@ -125,10 +125,10 @@ int h_b(string input)
     return sum_output & 0xFFFFFFFFu;
 }
 
-vector<int> h_i(string input, int m)
+vector<int> h_i(string input, int m, int k)
 {
     vector<int> keys;
-    for (int i = 0; i < input.size(); i++) 
+    for (int i = 0; i < k; i++) 
     {
         int key = (h_a(input) + i * h_b(input)) % m; 
         Bits[key] = 1;
@@ -155,13 +155,28 @@ int main(void) {
             int m = stoi(words[2]);
             int k = stoi(words[3]);
 
-
+            vector<int> keys = h_i(input, m, k);
+            for (int i = 0; i < k; i++)
+            {
+                if(i != k - 1)
+                    cout << keys[i] << ",";
+                else
+                    cout << keys[i] << '\n';
+            }
+            
         }
         else if(words[0] == "HA")
         {
             string input = words[1];
+
+            cout << h_a(input) << '\n';
+        }
+        else
+        {
+            string input = words[1];
             
-        }   
+            cout << h_b(input) << '\n';
+        }
     }
 
     return 0;
